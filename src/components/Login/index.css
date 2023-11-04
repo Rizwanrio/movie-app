@@ -1,11 +1,24 @@
-.main {
-  background-image: url('https://res.cloudinary.com/dxauist1a/image/upload/v1698116932/netfilx_1_aidhn1.png');
-  height: 100vh;
-  background-size: cover;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+@media (min-width: 600px) {
+  .main {
+    background-image: url('https://res.cloudinary.com/dxauist1a/image/upload/v1698116932/netfilx_1_aidhn1.png');
+    height: 100vh;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .main {
+    background-color: black;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+  }
 }
 
 .head {
@@ -22,9 +35,45 @@
   width: 456px;
   height: 440px;
   border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 form {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+}
+
+.loginLogo {
+  align-self: flex-start;
+  padding-left: 30px;
+}
+
+.loginHead {
+  text-align: center;
+}
+
+.login_btn {
+  background-color: red;
+  border-style: none;
+  color: #ffffff;
+  border-radius: 5px;
+  width: 200px;
+  height: 25px;
+}
+
+.cred {
+  width: 200px;
+  border-style: none;
+  background-color: gray;
+  margin-bottom: 10px;
+}
+
+label {
+  font-size: 15px;
+  margin-bottom: 5px;
 }

@@ -35,6 +35,9 @@ class Login extends Component {
     Cookies.set('jwt_token', jwtToken, {expires: 30})
     const {history} = this.props
     history.replace('/')
+    const {username, password} = this.state
+    localStorage.setItem('username', username)
+    localStorage.setItem('password', password)
   }
 
   user = event => {
@@ -49,7 +52,7 @@ class Login extends Component {
     const {username, password, err} = this.state
     return (
       <div className="main">
-        <div>
+        <div className="loginLogo">
           <img
             src="https://res.cloudinary.com/dxauist1a/image/upload/v1698124317/Group_7399_i0b20l.png"
             alt="login website logo"
@@ -57,7 +60,7 @@ class Login extends Component {
           />
         </div>
         <div className="cont">
-          <h1>Login</h1>
+          <h1 className="loginHead">Login</h1>
           <form onSubmit={this.login}>
             <label htmlFor="user">USERNAME</label>
             <input
@@ -65,6 +68,7 @@ class Login extends Component {
               id="user"
               value={username}
               onChange={this.user}
+              className="cred"
             />
             <label htmlFor="pwd">PASSWORD</label>
             <input
@@ -72,9 +76,12 @@ class Login extends Component {
               id="pwd"
               value={password}
               onChange={this.pwd}
+              className="cred"
             />
             {err.length !== 0 && <p className="err">{err}</p>}
-            <button type="submit">Login</button>
+            <button type="submit" className="login_btn">
+              Login
+            </button>
           </form>
         </div>
       </div>

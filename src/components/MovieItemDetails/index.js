@@ -1,11 +1,202 @@
 import {Component} from 'react'
+import {Link} from 'react-router-dom'
+import Cookies from 'js-cookie'
+import Loader from 'react-loader-spinner'
+import Header from '../Header'
+import Social from '../Social'
 import './index.css'
 
+const status = {
+  Initial: 'init',
+  Failure: 'fail',
+  Load: 'loading',
+  Success: 'success',
+}
+
 class MovieItemDetails extends Component {
+  state = {
+    movieDetails: [],
+    pageStatus: status.Initial,
+  }
+
+  componentDidMount() {
+    this.getDetails()
+  }
+
+  getDetails = async () => {
+    this.setState({pageStatus: status.Load})
+    const {match} = this.props
+    const {params} = match
+    const {id} = params
+
+    const jwtToken = Cookies.get('jwt_token')
+    const options = {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    }
+
+    const resp = await fetch(
+      `https://apis.ccbp.in/movies-app/movies/${id}`,
+      options,
+    )
+
+    if (resp.ok) {
+      const data = await resp.json()
+
+      const newData = {
+        adult: data.movie_details.adult,
+        backdropPath: data.movie_details.backdrop_path,
+        budget: data.movie_details.budget,
+        genres: data.movie_details.genres,
+        id: data.movie_details.id,
+        overview: data.movie_details.overview,
+        posterPath: data.movie_details.poster_path,
+        title: data.movie_details.title,
+        releaseDate: data.movie_details.release_date,
+        runtime: data.movie_details.runtime,
+        similarMovies: data.movie_details.similar_movies.map(el1 => ({
+          backdropPath: el1.backdrop_path,
+          id: el1.id,
+          overview: el1.overview,
+          posterPath: el1.poster_path,
+          title: el1.title,
+        })),
+        spokenLanguages: data.movie_details.spoken_languages.map(el2 => ({
+          id: el2.id,
+          englishName: el2.english_name,
+        })),
+        voteAverage: data.movie_details.vote_average,
+        voteCount: data.movie_details.vote_count,
+      }
+      this.setState({movieDetails: newData, pageStatus: status.Success})
+    } else {
+      this.setState({pageStatus: status.Failure})
+    }
+  }
+
+  loader = () => (
+    <div className="loader-container" testid="loader">
+      <Loader type="TailSpin" color="#D81F26" height={50} width={50} />
+    </div>
+  )
+
+  renderFailedView = () => (
+    <div className="errView">
+      <img
+        src="https://res.cloudinary.com/dxauist1a/image/upload/v1698822484/Background-Complete_thjtsg.png"
+        alt="err"
+      />
+      <p>Something went wrong. Please try again</p>
+      <button type="button" onClick={this.getPopular}>
+        Try Again
+      </button>
+    </div>
+  )
+
+  renderSuccessView = () => {
+    const {movieDetails} = this.state
+    return (
+      <>
+        <div
+          className="banner"
+          style={{
+            backgroundImage: `url(${movieDetails.posterPath})`,
+            height: '40vh',
+            backgroundSize: '100vw 40vh',
+            color: '#ffffff',
+          }}
+        >
+          <h1>{movieDetails.title}</h1>
+          <div className="movie_specs">
+            <p>
+              {Math.floor(movieDetails.runtime / 60)}h{' '}
+              {movieDetails.runtime % 60}m
+            </p>
+            <p className="certification">{movieDetails.adult ? 'A' : 'U/A'}</p>
+            <p>{movieDetails.releaseDate.split('-')[0]}</p>
+          </div>
+          <p>{movieDetails.overview}</p>
+          <button type="button" className="play_btn">
+            Play
+          </button>
+        </div>
+        <div className="detail_middle_cont">
+          <ul className="extra_details">
+            <li className="detail_tabs">
+              <h3 className="detail_head">Genres</h3>
+              <ul>
+                {movieDetails.genres.map(el => (
+                  <li key={el.id}>{el.name}</li>
+                ))}
+              </ul>
+            </li>
+            <li className="detail_tabs">
+              <h3 className="detail_head">Audio Available</h3>
+              <ul>
+                {movieDetails.spokenLanguages.map(el => (
+                  <li key={el.id}>{el.englishName}</li>
+                ))}
+              </ul>
+            </li>
+            <li className="detail_tabs">
+              <h3 className="detail_head">Rating Count</h3>
+              <p>{movieDetails.voteCount}</p>
+              <h3 className="detail_head">Rating Average</h3>
+              <p>{movieDetails.voteAverage}</p>
+            </li>
+            <li className="detail_tabs">
+              <h3 className="detail_head">Budget</h3>
+              <p>{movieDetails.budget}</p>
+              <h3 className="detail_head">Release Date</h3>
+              <p>{movieDetails.releaseDate}</p>
+            </li>
+          </ul>
+          <div>
+            <h2 className="more">More like this</h2>
+            <div className="similar">
+              {movieDetails.similarMovies.map(el => (
+                <Link to={`/movies/${el.id}`} key={el.id}>
+                  <img
+                    src={el.posterPath}
+                    alt={el.title}
+                    className="similar_img"
+                  />
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+        <Social />
+      </>
+    )
+  }
+
+  renderView = () => {
+    const {pageStatus} = this.state
+    switch (pageStatus) {
+      case 'loading':
+        return this.loader()
+      case 'success':
+        return this.renderSuccessView()
+      case 'fail':
+        return this.renderFailedView()
+
+      default:
+        return null
+    }
+  }
+
   render() {
     return (
-      <div>
-        <h1>hi</h1>
+      <div className="detail">
+        <div className="detail_cont">
+          <div className="header">
+            <Header />
+          </div>
+          {this.renderView()}
+        </div>
       </div>
     )
   }

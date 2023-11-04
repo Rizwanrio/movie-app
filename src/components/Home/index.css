@@ -1,0 +1,75 @@
+.home {
+  background-image: url('https://res.cloudinary.com/dxauist1a/image/upload/v1698733081/Image_s4gcmz.png');
+  height: 40vh;
+}
+
+.back-cont {
+  background-color: #131313;
+  height: 100vh;
+}
+
+.matter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 112px;
+  color: #ffffff;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.slick-container {
+  width: 100%;
+  max-width: 1100px;
+  margin-top: 10px;
+  padding-left: 5px;
+}
+
+@media (min-width: 1100px) {
+  .logo-image {
+    margin: 5px;
+    height: 120px;
+    width: 250px;
+    border-radius: 5px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .logo-image {
+    margin: 5px;
+    height: 80px;
+    width: 100px;
+    border-radius: 5px;
+  }
+}
+
+/* You can change the CSS color to style the Next and 
+Previous Arrow buttons according to your project */
+
+.slick-prev:before,
+.slick-next:before {
+  color: white;
+}
+
+.slick_name {
+  color: #ffffff;
+}
+
+.loader-container {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+
+.slick_section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+  height: 50vh;
+}

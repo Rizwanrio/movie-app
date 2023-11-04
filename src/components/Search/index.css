@@ -1,0 +1,46 @@
+.searchCont {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 112px;
+  padding-right: 112px;
+  height: 80vh;
+  color: #ffffff;
+  overflow: scroll;
+  width: 85vw;
+}
+
+.searchImg {
+  width: 20vw;
+  height: 200px;
+  margin: 10px;
+}
+
+.searchBack {
+  background-color: #131313;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.search-not-found {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  height: 80vh;
+}
+
+.defaultCont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  height: 80vh;
+}
+
+input {
+  background: transparent;
+  border-style: none;
+  color: #ffffff;
+}
