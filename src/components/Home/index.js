@@ -3,55 +3,22 @@ import {Link} from 'react-router-dom'
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
 import Slider from 'react-slick'
-import {RiAlertFill} from 'react-icons/ri'
 import Social from '../Social'
 import Header from '../Header'
+import TrendView from '../TrendView'
+import OriginalView from '../OriginalView'
 
 import './index.css'
 
 class Home extends Component {
   state = {
-    trend: [],
-    original: [],
-    trendEr: false,
-    originalEr: false,
-    trendLoad: true,
-    originalLoad: true,
     poster: '',
     posterLoad: true,
     posterEr: false,
   }
 
   componentDidMount() {
-    this.getTrend()
     this.getOriginal()
-  }
-
-  getTrend = async () => {
-    const jwtToken = Cookies.get('jwt_token')
-    const options = {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${jwtToken}`,
-      },
-    }
-    const resp = await fetch(
-      'https://apis.ccbp.in/movies-app/trending-movies',
-      options,
-    )
-    if (resp.ok) {
-      const data = await resp.json()
-      const newData = data.results.map(el => ({
-        backdropPath: el.backdrop_path,
-        id: el.id,
-        overview: el.overview,
-        posterPath: el.poster_path,
-        title: el.title,
-      }))
-      this.setState({trendLoad: false, trend: newData})
-    } else {
-      this.setState({trendEr: true, trendLoad: false})
-    }
   }
 
   getOriginal = async () => {
@@ -77,15 +44,11 @@ class Home extends Component {
       }))
       const poster = newData[Math.floor(Math.random() * 11)]
       this.setState({
-        originalLoad: false,
-        original: newData,
         poster,
         posterLoad: false,
       })
     } else {
       this.setState({
-        originalEr: true,
-        originalLoad: false,
         posterLoad: false,
         posterEr: true,
       })
@@ -118,120 +81,14 @@ class Home extends Component {
     )
   }
 
-  trendView = () => {
-    const {trend} = this.state
-    const settings = {
-      dots: false,
-      infinite: false,
-      speed: 500,
-      slidesToShow: 4,
-      slidesToScroll: 1,
-      responsive: [
-        {
-          breakpoint: 1024,
-          settings: {
-            slidesToShow: 4,
-            slidesToScroll: 1,
-          },
-        },
-        {
-          breakpoint: 600,
-          settings: {
-            slidesToShow: 3,
-            slidesToScroll: 1,
-          },
-        },
-        {
-          breakpoint: 480,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 1,
-          },
-        },
-      ],
-    }
-    return (
-      <div className="slick-container">
-        <Slider {...settings}>
-          {trend.map(el => {
-            const {id, posterPath} = el
-            return (
-              <div className="slick-item" key={id}>
-                <Link to={`/movies/${id}`}>
-                  <img
-                    className="logo-image"
-                    src={posterPath}
-                    alt="poster logo"
-                  />
-                </Link>
-              </div>
-            )
-          })}
-        </Slider>
-      </div>
-    )
-  }
-
-  originalView = () => {
-    const {original} = this.state
-    const settings = {
-      dots: false,
-      infinite: false,
-      speed: 500,
-      slidesToShow: 4,
-      slidesToScroll: 1,
-      responsive: [
-        {
-          breakpoint: 1024,
-          settings: {
-            slidesToShow: 4,
-            slidesToScroll: 1,
-          },
-        },
-        {
-          breakpoint: 600,
-          settings: {
-            slidesToShow: 3,
-            slidesToScroll: 1,
-          },
-        },
-        {
-          breakpoint: 480,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 1,
-          },
-        },
-      ],
-    }
-    return (
-      <div className="slick-container">
-        <Slider {...settings}>
-          {original.map(el => {
-            const {id, posterPath} = el
-            return (
-              <div className="slick-item" key={id}>
-                <img
-                  className="logo-image"
-                  src={posterPath}
-                  alt="poster logo"
-                />
-              </div>
-            )
-          })}
-        </Slider>
-      </div>
-    )
-  }
-
-  errView = fn => (
+  errView = () => (
     <div>
       <img
         src="https://res.cloudinary.com/dxauist1a/image/upload/v1699345219/alert-triangle_wsj4js.png"
         alt="failure view"
       />
       <p>Something went wrong. Please try again</p>
-      <button type="button" onClick={fn()}>
+      <button type="button" onClick={this.getOriginal}>
         Retry
       </button>
     </div>
@@ -244,14 +101,7 @@ class Home extends Component {
   )
 
   render() {
-    const {
-      trendEr,
-      trendLoad,
-      originalEr,
-      originalLoad,
-      posterLoad,
-      posterEr,
-    } = this.state
+    const {posterLoad, posterEr} = this.state
     return (
       <div className="back-cont">
         {posterLoad && this.loader}
@@ -263,25 +113,11 @@ class Home extends Component {
         <div className="slick_section">
           <div>
             <h1 className="slick_name">Trending Now</h1>
-            <div>{trendLoad && this.loader()}</div>
-            <div>
-              {trendEr ? (
-                <div>{this.errView(this.trendView)}</div>
-              ) : (
-                <div className="main-container">{this.trendView()}</div>
-              )}
-            </div>
+            <TrendView />
           </div>
           <div>
             <h1 className="slick_name">Originals</h1>
-            <div>{originalLoad && this.loader()}</div>
-            <div>
-              {originalEr ? (
-                <div>{this.errView(this.originalView)}</div>
-              ) : (
-                <div className="main-container">{this.originalView()}</div>
-              )}
-            </div>
+            <OriginalView />
           </div>
         </div>
         <Social />
