@@ -1,20 +1,23 @@
 import {Component} from 'react'
-import {Link} from 'react-router-dom'
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
-import Slider from 'react-slick'
 import Social from '../Social'
 import Header from '../Header'
 import TrendView from '../TrendView'
 import OriginalView from '../OriginalView'
-
 import './index.css'
+
+const status = {
+  Initial: 'init',
+  Failure: 'fail',
+  Load: 'loading',
+  Success: 'success',
+}
 
 class Home extends Component {
   state = {
     poster: '',
-    posterLoad: true,
-    posterEr: false,
+    pageStatus: status.Initial,
   }
 
   componentDidMount() {
@@ -22,6 +25,7 @@ class Home extends Component {
   }
 
   getOriginal = async () => {
+    this.setState({pageStatus: status.Load})
     const jwtToken = Cookies.get('jwt_token')
     const options = {
       method: 'GET',
@@ -45,12 +49,11 @@ class Home extends Component {
       const poster = newData[Math.floor(Math.random() * 11)]
       this.setState({
         poster,
-        posterLoad: false,
+        pageStatus: status.Success,
       })
     } else {
       this.setState({
-        posterLoad: false,
-        posterEr: true,
+        pageStatus: status.Failure,
       })
     }
   }
@@ -100,16 +103,26 @@ class Home extends Component {
     </div>
   )
 
+  renderHomePoster = () => {
+    const {pageStatus} = this.state
+    switch (pageStatus) {
+      case status.Success:
+        return this.posterView()
+      case status.Failure:
+        return this.errView()
+      case status.Load:
+        return this.loader()
+
+      default:
+        return null
+    }
+  }
+
   render() {
     const {posterLoad, posterEr} = this.state
     return (
       <div className="back-cont">
-        {posterLoad && this.loader}
-        {posterEr ? (
-          <div>{this.errView(this.originalView)}</div>
-        ) : (
-          <div>{this.posterView()}</div>
-        )}
+        {this.renderHomePoster()}
         <div className="slick_section">
           <div>
             <h1 className="slick_name">Trending Now</h1>
