@@ -92,10 +92,10 @@ class MovieItemDetails extends Component {
     <div className="errView">
       <img
         src="https://res.cloudinary.com/dxauist1a/image/upload/v1698822484/Background-Complete_thjtsg.png"
-        alt="err"
+        alt="failure view"
       />
       <p>Something went wrong. Please try again</p>
-      <button type="button" onClick={this.getPopular}>
+      <button type="button" onClick={this.getDetails}>
         Try Again
       </button>
     </div>
@@ -103,6 +103,35 @@ class MovieItemDetails extends Component {
 
   renderSuccessView = () => {
     const {movieDetails} = this.state
+    const months = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ]
+    const d = new Date(movieDetails.releaseDate)
+    const monthName = months[d.getMonth()]
+    const date = new Date(movieDetails.releaseDate)
+    const year = date.getFullYear()
+    const day = date.getDay().toString()
+    let dateEndingWord
+    if (day.endsWith('1')) {
+      dateEndingWord = 'st'
+    } else if (day.endsWith('2')) {
+      dateEndingWord = 'nd'
+    } else if (day.endsWith('3')) {
+      dateEndingWord = 'rd'
+    } else {
+      dateEndingWord = 'th'
+    }
     return (
       <>
         <div
@@ -121,7 +150,7 @@ class MovieItemDetails extends Component {
               {movieDetails.runtime % 60}m
             </p>
             <p className="certification">{movieDetails.adult ? 'A' : 'U/A'}</p>
-            <p>{movieDetails.releaseDate.split('-')[0]}</p>
+            <p>{year}</p>
           </div>
           <p>{movieDetails.overview}</p>
           <button type="button" className="play_btn">
@@ -160,7 +189,7 @@ class MovieItemDetails extends Component {
               <h3 className="detail_head">Budget</h3>
               <p>{movieDetails.budget}</p>
               <h3 className="detail_head">Release Date</h3>
-              <p>{movieDetails.releaseDate}</p>
+              <p>{`${day}${dateEndingWord} ${monthName} ${year}`}</p>
             </li>
           </ul>
           <div>
