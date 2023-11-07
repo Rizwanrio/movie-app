@@ -226,8 +226,11 @@ class Home extends Component {
 
   errView = fn => (
     <div>
-      <RiAlertFill />
-      <p>Something went wrong. Please try again.</p>
+      <img
+        src="https://res.cloudinary.com/dxauist1a/image/upload/v1699345219/alert-triangle_wsj4js.png"
+        alt="failure view"
+      />
+      <p>Something went wrong. Please try again</p>
       <button type="button" onClick={fn()}>
         Retry
       </button>
@@ -259,7 +262,7 @@ class Home extends Component {
         )}
         <div className="slick_section">
           <div>
-            <p className="slick_name">Trending Now</p>
+            <h1 className="slick_name">Trending Now</h1>
             <div>{trendLoad && this.loader()}</div>
             <div>
               {trendEr ? (
@@ -270,7 +273,7 @@ class Home extends Component {
             </div>
           </div>
           <div>
-            <p className="slick_name">Originals</p>
+            <h1 className="slick_name">Originals</h1>
             <div>{originalLoad && this.loader()}</div>
             <div>
               {originalEr ? (

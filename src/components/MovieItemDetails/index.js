@@ -4,6 +4,7 @@ import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
 import Header from '../Header'
 import Social from '../Social'
+import SimilarMovie from '../SimilarMovies'
 import './index.css'
 
 const status = {
@@ -16,18 +17,24 @@ const status = {
 class MovieItemDetails extends Component {
   state = {
     movieDetails: [],
+    idMovie: '',
     pageStatus: status.Initial,
   }
 
   componentDidMount() {
-    this.getDetails()
+    const {match} = this.props
+    const {params} = match
+    const {id} = params
+    this.setState({idMovie: id}, this.getDetails)
+  }
+
+  getId = id => {
+    this.setState({idMovie: id}, this.getDetails)
   }
 
   getDetails = async () => {
     this.setState({pageStatus: status.Load})
-    const {match} = this.props
-    const {params} = match
-    const {id} = params
+    const {idMovie} = this.state
 
     const jwtToken = Cookies.get('jwt_token')
     const options = {
@@ -38,10 +45,10 @@ class MovieItemDetails extends Component {
     }
 
     const resp = await fetch(
-      `https://apis.ccbp.in/movies-app/movies/${id}`,
+      `https://apis.ccbp.in/movies-app/movies/${idMovie}`,
       options,
     )
-
+    console.log(resp)
     if (resp.ok) {
       const data = await resp.json()
 
@@ -128,7 +135,9 @@ class MovieItemDetails extends Component {
               <h3 className="detail_head">Genres</h3>
               <ul>
                 {movieDetails.genres.map(el => (
-                  <li key={el.id}>{el.name}</li>
+                  <li key={el.id}>
+                    <p>{el.name}</p>
+                  </li>
                 ))}
               </ul>
             </li>
@@ -136,7 +145,9 @@ class MovieItemDetails extends Component {
               <h3 className="detail_head">Audio Available</h3>
               <ul>
                 {movieDetails.spokenLanguages.map(el => (
-                  <li key={el.id}>{el.englishName}</li>
+                  <li key={el.id}>
+                    <p>{el.englishName}</p>
+                  </li>
                 ))}
               </ul>
             </li>
@@ -157,13 +168,7 @@ class MovieItemDetails extends Component {
             <h2 className="more">More like this</h2>
             <div className="similar">
               {movieDetails.similarMovies.map(el => (
-                <Link to={`/movies/${el.id}`} key={el.id}>
-                  <img
-                    src={el.posterPath}
-                    alt={el.title}
-                    className="similar_img"
-                  />
-                </Link>
+                <SimilarMovie element={el} getId={this.getId} />
               ))}
             </div>
           </div>

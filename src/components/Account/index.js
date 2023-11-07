@@ -22,7 +22,7 @@ const Account = props => {
         <h1>Account</h1>
         <hr />
         <div className="member_data">
-          <h2>Member ship</h2>
+          <p>Member ship</p>
           <div className="member_value">
             <p>{username}</p>
             <p>{passwordEncrypt}</p>
@@ -31,8 +31,10 @@ const Account = props => {
         <hr />
         <div className="member_data">
           <h2>Plan details</h2>
-          <p className="member_value">Premium Ultra HD</p>
+          <p className="member_value">Premium</p>
+          <p>Ultra HD</p>
         </div>
+
         <hr />
         <div className="log_btn_div">
           <button type="button" onClick={onClickLogout} className="logout_btn">

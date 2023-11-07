@@ -59,3 +59,9 @@ input {
   text-decoration: none;
   color: #ffffff;
 }
+
+.searchIcon {
+  background-color: transparent;
+  border-style: none;
+  color: #ffffff;
+}

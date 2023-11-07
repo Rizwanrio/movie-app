@@ -1,6 +1,6 @@
 import {Component} from 'react'
 import {Link} from 'react-router-dom'
-import {AiOutlineSearch} from 'react-icons/ai'
+import {HiOutlineSearch} from 'react-icons/hi'
 import './index.css'
 
 class Header extends Component {
@@ -61,21 +61,26 @@ class Header extends Component {
                 type="button"
                 onClick={this.startSearch}
                 className="search_btn"
+                testid="searchButton"
               >
-                <AiOutlineSearch />
+                <HiOutlineSearch />
               </button>
             </div>
           ) : (
             <Link to="/search" className="search_icon">
-              <div>
-                <AiOutlineSearch />
-              </div>
+              <button
+                testid="searchButton"
+                type="button"
+                className="searchIcon"
+              >
+                <HiOutlineSearch />
+              </button>
             </Link>
           )}
           <Link to="/account">
             <img
               src="https://res.cloudinary.com/dxauist1a/image/upload/v1698730550/Avatar_sal1y5.png"
-              alt="avatar"
+              alt="profile"
             />
           </Link>
         </div>
