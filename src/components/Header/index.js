@@ -43,6 +43,7 @@ class Header extends Component {
 
   render() {
     const {searchBox, menu} = this.state
+
     return (
       <div className="header_outer">
         <div className="header_main">

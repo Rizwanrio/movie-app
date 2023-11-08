@@ -14,7 +14,6 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-
   width: 100vw;
   padding-left: 112px;
   padding-right: 112px;
@@ -27,6 +26,7 @@
 
 .header {
   position: absolute;
+  top: 0;
 }
 
 .right-cont {

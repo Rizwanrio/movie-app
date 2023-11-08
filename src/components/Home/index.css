@@ -1,6 +1,6 @@
 .home {
-  background-image: url('https://res.cloudinary.com/dxauist1a/image/upload/v1698733081/Image_s4gcmz.png');
-  height: 40vh;
+  display: flex;
+  align-items: center;
 }
 
 .back-cont {
