@@ -25,6 +25,10 @@
   display: flex;
 }
 
+.header {
+  position: absolute;
+}
+
 .right-cont {
   display: flex;
   align-items: center;

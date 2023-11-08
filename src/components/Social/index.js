@@ -2,7 +2,7 @@ import {FaGoogle, FaTwitter, FaInstagram, FaYoutube} from 'react-icons/fa'
 import './index.css'
 
 const Social = () => (
-  <div className="social">
+  <footer className="social">
     <div className="social_icons">
       <FaGoogle />
       <FaTwitter />
@@ -10,7 +10,7 @@ const Social = () => (
       <FaYoutube />
     </div>
     <p>Contact Us</p>
-  </div>
+  </footer>
 )
 
 export default Social

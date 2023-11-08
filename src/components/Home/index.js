@@ -67,11 +67,13 @@ class Home extends Component {
           style={{
             backgroundImage: `url(${poster.posterPath})`,
             height: '40vh',
-            backgroundSize: '100vw 100%',
+            backgroundSize: '100% auto',
             backgroundRepeat: 'no-repeat',
           }}
         >
-          <Header />
+          <div className="header">
+            <Header />
+          </div>
           <div className="matter">
             <h1>{poster.title}</h1>
             <p>{poster.overview}</p>

@@ -139,7 +139,7 @@ class MovieItemDetails extends Component {
           style={{
             backgroundImage: `url(${movieDetails.posterPath})`,
             height: '40vh',
-            backgroundSize: '100vw 40vh',
+            backgroundSize: '100% auto',
             color: '#ffffff',
           }}
         >

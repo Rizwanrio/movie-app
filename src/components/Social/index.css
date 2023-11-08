@@ -7,6 +7,8 @@
   height: 10vh;
   color: #ffffff;
   background-color: #131313;
+  position: fixed;
+  bottom: 0;
 }
 
 .social_icons {
