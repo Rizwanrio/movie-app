@@ -6,7 +6,18 @@
   width: 100vw;
   padding-left: 112px;
   padding-right: 112px;
+  background-color: rgba(19, 19, 19, 0.3);
+}
 
+.header_outer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 100vw;
+  padding-left: 112px;
+  padding-right: 112px;
   background-color: rgba(19, 19, 19, 0.3);
 }
 
@@ -63,5 +74,33 @@ input {
 .searchIcon {
   background-color: transparent;
   border-style: none;
+  color: #ffffff;
+}
+
+.sm_menu {
+  display: flex;
+  list-style-type: none;
+}
+
+@media screen and (max-width: 768px) {
+  .menu_sm_icon {
+    display: block;
+    color: #ffffff;
+  }
+  .menu_lg {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .menu_sm_icon {
+    display: none;
+  }
+  .menu_lg {
+    display: block;
+  }
+}
+
+.cross {
   color: #ffffff;
 }

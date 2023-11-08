@@ -30,7 +30,7 @@ const Account = props => {
         </div>
         <hr />
         <div className="member_data">
-          <h2>Plan details</h2>
+          <p>Plan details</p>
           <p className="member_value">Premium</p>
           <p>Ultra HD</p>
         </div>
@@ -42,7 +42,6 @@ const Account = props => {
           </button>
         </div>
       </div>
-
       <Social />
     </div>
   )

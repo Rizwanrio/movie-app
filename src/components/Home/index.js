@@ -119,7 +119,6 @@ class Home extends Component {
   }
 
   render() {
-    const {posterLoad, posterEr} = this.state
     return (
       <div className="back-cont">
         {this.renderHomePoster()}
