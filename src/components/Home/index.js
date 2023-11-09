@@ -17,6 +17,7 @@ const status = {
 class Home extends Component {
   state = {
     poster: '',
+    original: [],
     pageStatus: status.Initial,
   }
 
@@ -49,11 +50,13 @@ class Home extends Component {
       const poster = newData[Math.floor(Math.random() * 11)]
       this.setState({
         poster,
+        original: newData,
         pageStatus: status.Success,
       })
     } else {
       this.setState({
         pageStatus: status.Failure,
+        original: 'err',
       })
     }
   }
@@ -121,6 +124,7 @@ class Home extends Component {
   }
 
   render() {
+    const {original} = this.state
     return (
       <div className="back-cont">
         {this.renderHomePoster()}
@@ -131,7 +135,7 @@ class Home extends Component {
           </div>
           <div>
             <h1 className="slick_name">Originals</h1>
-            <OriginalView />
+            <OriginalView original={original} />
           </div>
         </div>
         <Social />

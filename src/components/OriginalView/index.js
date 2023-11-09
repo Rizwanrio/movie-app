@@ -1,5 +1,4 @@
 import {Component} from 'react'
-import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
 import {Link} from 'react-router-dom'
 import Slider from 'react-slick'
@@ -13,7 +12,6 @@ const apiStatusConstants = {
 
 class OriginalView extends Component {
   state = {
-    trendingNow: [],
     apiStatus: apiStatusConstants.initial,
   }
 
@@ -21,40 +19,16 @@ class OriginalView extends Component {
     this.getOriginal()
   }
 
-  getOriginal = async () => {
-    this.setState({apiStatus: apiStatusConstants.inProgress})
-    const jwtToken = Cookies.get('jwt_token')
-    const apiUrl = `https://apis.ccbp.in/movies-app/originals`
-    const options = {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${jwtToken}`,
-      },
+  getOriginal = () => {
+    const {original} = this.props
+    if (original === 'err') {
+      this.setState({apiStatus: apiStatusConstants.failure})
     }
-
-    const response = await fetch(apiUrl, options)
-    if (response.ok === true) {
-      const data = await response.json()
-
-      const updatedData = data.results.map(each => ({
-        id: each.id,
-        posterPath: each.poster_path,
-        title: each.title,
-      }))
-
-      this.setState({
-        trendingNow: updatedData,
-        apiStatus: apiStatusConstants.success,
-      })
-    } else {
-      this.setState({
-        apiStatus: apiStatusConstants.failure,
-      })
-    }
+    this.setState({apiStatus: apiStatusConstants.success})
   }
 
   originalView = () => {
-    const {trendingNow} = this.state
+    const {original} = this.props
     const settings = {
       dots: false,
       infinite: false,
@@ -92,7 +66,7 @@ class OriginalView extends Component {
     return (
       <>
         <Slider {...settings}>
-          {trendingNow.map(el => {
+          {original.map(el => {
             const {id, posterPath, title} = el
             return (
               <div className="slick-item" key={id}>
