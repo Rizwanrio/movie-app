@@ -1,13 +1,10 @@
 import Cookies from 'js-cookie'
 import Header from '../Header'
 import Social from '../Social'
+import LoginContext from '../../Context/LoginContext'
 import './index.css'
 
 const Account = props => {
-  const username = localStorage.getItem('username')
-  const password = localStorage.getItem('password')
-
-  const passwordEncrypt = '*'.repeat(password.length)
   const onClickLogout = () => {
     const {history} = props
     localStorage.clear()
@@ -16,40 +13,49 @@ const Account = props => {
   }
 
   return (
-    <>
-      <div className="account_main">
-        <Header />
-        <div className="account">
-          <h1>Account</h1>
-          <hr />
-          <div className="member_data">
-            <p>Member ship</p>
-            <div className="member_value">
-              <p>{username}</p>
-              <p>{passwordEncrypt}</p>
-            </div>
-          </div>
-          <hr />
-          <div className="member_data">
-            <p>Plan details</p>
-            <p className="member_value">Premium</p>
-            <p>Ultra HD</p>
-          </div>
+    <LoginContext>
+      {value => {
+        const {userName, passWord} = value
+        const passwordEncrypted = '*'.repeat(passWord.length)
 
-          <hr />
-          <div className="log_btn_div">
-            <button
-              type="button"
-              onClick={onClickLogout}
-              className="logout_btn"
-            >
-              Logout
-            </button>
-          </div>
-        </div>
-        <Social />
-      </div>
-    </>
+        return (
+          <>
+            <div className="account_main">
+              <Header />
+              <div className="account">
+                <h1>Account</h1>
+                <hr />
+                <div className="member_data">
+                  <p>Member ship</p>
+                  <div className="member_value">
+                    <p>{userName}</p>
+                    <p>{passwordEncrypted}</p>
+                  </div>
+                </div>
+                <hr />
+                <div className="member_data">
+                  <p>Plan details</p>
+                  <p className="member_value">Premium</p>
+                  <p>Ultra HD</p>
+                </div>
+
+                <hr />
+                <div className="log_btn_div">
+                  <button
+                    type="button"
+                    onClick={onClickLogout}
+                    className="logout_btn"
+                  >
+                    Logout
+                  </button>
+                </div>
+              </div>
+              <Social />
+            </div>
+          </>
+        )
+      }}
+    </LoginContext>
   )
 }
 
