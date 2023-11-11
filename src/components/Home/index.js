@@ -64,7 +64,6 @@ class Home extends Component {
   posterView = () => {
     const {poster} = this.state
     return (
-      <div>
         <div
           className="home"
           style={{
@@ -83,7 +82,6 @@ class Home extends Component {
             </button>
           </div>
         </div>
-      </div>
     )
   }
 
@@ -128,14 +126,10 @@ class Home extends Component {
           </div>
         {this.renderHomePoster()}
         <div className="slick_section">
-          <div>
             <h1 className="slick_name">Trending Now</h1>
             <TrendView />
-          </div>
-          <div>
             <h1 className="slick_name">Originals</h1>
             <OriginalView original={original} />
-          </div>
         </div>
         <Social />
       </div>
