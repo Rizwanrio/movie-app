@@ -47,7 +47,7 @@ class Home extends Component {
         posterPath: el.poster_path,
         title: el.title,
       }))
-      const poster = newData[Math.floor(Math.random() * 11)]
+      const poster = newData[Math.floor(Math.random() * newData.length)]
       this.setState({
         poster,
         original: newData,
@@ -77,7 +77,7 @@ class Home extends Component {
           
           <div className="matter">
             <h1>{poster.title}</h1>
-            <p>{poster.overview}</p>
+            <h1>{poster.overview}</h1>
             <button type="button" className="play_btn">
               Play
             </button>
