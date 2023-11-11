@@ -113,11 +113,9 @@ class Home extends Component {
         return this.posterView()
       case status.Failure:
         return this.errView()
-      case status.Load:
-        return this.loader()
 
       default:
-        return null
+        return this.loader()
     }
   }
 
