@@ -74,9 +74,7 @@ class Home extends Component {
             backgroundRepeat: 'no-repeat',
           }}
         >
-          <div className="header">
-            <Header />
-          </div>
+          
           <div className="matter">
             <h1>{poster.title}</h1>
             <p>{poster.overview}</p>
@@ -127,6 +125,9 @@ class Home extends Component {
     const {original} = this.state
     return (
       <div className="back-cont">
+      <div className="header">
+            <Header />
+          </div>
         {this.renderHomePoster()}
         <div className="slick_section">
           <div>
