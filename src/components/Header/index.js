@@ -112,15 +112,21 @@ class Header extends Component {
         {menu && (
           <div className="header_main">
             <ul className="sm_menu">
-              <Link to="/" className="menu">
-                <li>Home</li>
-              </Link>
-              <Link to="/popular" className="menu">
-                <li>Popular</li>
-              </Link>
-              <Link to="/account" className="menu">
-                <li>Account</li>
-              </Link>
+                <li>
+                    <Link to="/" className="menu">
+                        Home
+                    </Link>
+               </li>
+               <li>
+                    <Link to="/popular" className="menu">
+                        Popular
+                    </Link>
+              </li>
+              <li>
+                    <Link to="/account" className="menu">
+                        Account
+                    </Link>
+              </li>
             </ul>
             <AiOutlineCloseCircle onClick={this.closeMenu} className="cross" />
           </div>
