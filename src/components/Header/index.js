@@ -55,12 +55,18 @@ class Header extends Component {
                 className="logo"
               />
             </Link>
+            <ul>
+                  <li>
             <Link to="/" className="menu menu_lg">
               <p>Home</p>
             </Link>
+                  </li>
+                  <li>
             <Link to="/popular" className="menu menu_lg">
               <p>Popular</p>
             </Link>
+                  </li>
+                  </ul>       
           </div>
           <div className="right-cont">
             {searchBox ? (
