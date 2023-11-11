@@ -139,7 +139,7 @@ class TrendView extends Component {
   }
 
   render() {
-    return {this.renderTrendingNow()}
+    return <>{this.renderTrendingNow()}</>
   }
 }
 
