@@ -51,22 +51,22 @@ class Header extends Component {
             <Link to="/">
               <img
                 src="https://res.cloudinary.com/dxauist1a/image/upload/v1698124317/Group_7399_i0b20l.png"
-                alt="login website logo"
+                alt="website logo"
                 className="logo"
               />
             </Link>
             <ul>
-                  <li>
-            <Link to="/" className="menu menu_lg">
-              <p>Home</p>
-            </Link>
-                  </li>
-                  <li>
-            <Link to="/popular" className="menu menu_lg">
-              <p>Popular</p>
-            </Link>
-                  </li>
-                  </ul>       
+                <li>
+                    <Link to="/" className="menu menu_lg">
+                    <p>Home</p>
+                    </Link>
+                </li>
+                <li>
+                    <Link to="/popular" className="menu menu_lg">
+                    <p>Popular</p>
+                    </Link>
+                </li>
+            </ul>       
           </div>
           <div className="right-cont">
             {searchBox ? (
