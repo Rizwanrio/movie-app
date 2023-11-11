@@ -76,7 +76,7 @@ class Home extends Component {
           
           <div className="matter">
             <h1>{poster.title}</h1>
-            <h1>{poster.overview}</h1>
+            <h2>{poster.overview}</h2>
             <button type="button" className="play_btn">
               Play
             </button>
