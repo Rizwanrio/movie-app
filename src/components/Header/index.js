@@ -45,7 +45,7 @@ class Header extends Component {
     const {searchBox, menu} = this.state
 
     return (
-      <div className="header_outer">
+      <nav className="header_outer">
         <div className="header_main">
           <div className="left-cont">
             <Link to="/">
@@ -119,7 +119,7 @@ class Header extends Component {
             <AiOutlineCloseCircle onClick={this.closeMenu} className="cross" />
           </div>
         )}
-      </div>
+      </nav>
     )
   }
 }
